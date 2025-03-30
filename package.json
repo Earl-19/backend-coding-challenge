@@ -1,0 +1,29 @@
+{
+  "name": "secure-messenger-api",
+  "version": "1.0.0",
+  "description": "A secure messaging API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha tests/**/*.test.mjs"
+  },
+  "keywords": [
+    "secure",
+    "messaging",
+    "API"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "secure-messenger-api": "file:"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0"
+  }
+}

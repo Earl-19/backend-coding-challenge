@@ -1,94 +1,159 @@
-# 🔐 Secure Messaging API - Backend Coding Challenge
+# Secure Messenger API
 
-This challenge is designed to test your backend skills in API design,
-encryption, debugging, and secure data handling. You are expected to
-think critically, solve problems creatively, and structure your solution
-with best coding practices. You may use either **Express (Node.js)** or
-**Flask (Python)**.
+## 📖 Project Description
 
-## ⏱ Time Limit
+Secure Messenger API is a backend service designed to provide encrypted messaging functionality using AES-256 encryption. It ensures data integrity and confidentiality by utilizing strong encryption algorithms. Additionally, the system supports token-based authentication and message expiration.
 
-**1 Hour** --- Please manage your time accordingly.
+## 🚀 Features
+- 🔒 AES-256-CBC Encryption and Decryption
+- 🔑 JWT Token Authentication for Secure Access
+- ⏳ Message Expiration Handling
+- 📂 File-based Storage System
+- ✅ Comprehensive Unit Testing
 
-## 🎯 Objective
+## 📂 Folder Structure
+```
+secure-messenger-api/
+├── controllers/
+├── routes/
+├── services/
+├── storage/
+├── tests/
+│   ├── auth.test.mjs
+│   ├── cryptoService.test.mjs
+│   ├── fileHandling.test.mjs
+│   ├── messageExpiry.test.mjs
+├── .env
+├── app.js
+├── package.json
+├── README.md
+```
 
-Build a secure messaging backend with three main features:
+## 📦 Installation
+1. Clone the repository:
+```
+git clone https://github.com/YourUsername/secure-messenger-api.git
+```
+2. Navigate to the project directory:
+```
+cd secure-messenger-api
+```
+3. Install dependencies:
+```
+npm install
+```
+4. Create a `.env` file in the root directory and define the following:
+```
+SECRET_KEY=your_secret_key
+PORT=3000
+```
 
-1.  Store encrypted messages per user using secure encryption.
-2.  Allow only the original user to decrypt and retrieve messages.
-3.  Debug a broken decryption function and explain your fix.
+## 📌 Usage
+Start the server:
+```
+npm start
+```
+The server will run at: `http://localhost:3000`
 
-## 📦 Required Endpoints
+## 🔑 Authentication
+All endpoints are protected by JWT authentication. Ensure you provide a valid token in the `Authorization` header.
 
-### 1. POST /messages
+## 📄 API Documentation
+### 1. Store Message (Encryption)
+```
+POST /messages
+```
+Body:
+```json
+{
+  "userId": "user123",
+  "message": "Your message here"
+}
+```
+Response:
+```json
+{
+  "message": "Message stored securely."
+}
+```
 
-Store a message for a user. Encrypt it using AES before storage.
+### 2. Retrieve Messages (Decryption)
+```
+GET /messages/:userId
+```
+Response:
+```json
+{
+  "messages": [ "Decrypted Message 1", "Decrypted Message 2" ]
+}
+```
 
-### 2. GET /messages/:userId
+### 3. Debug Decryption
+```
+POST /debug/decrypt
+```
+Body:
+```json
+{
+  "payload": "encryptedPayload"
+}
+```
+Response:
+```json
+{
+  "result": "Decrypted message or error message"
+}
+```
 
-Retrieve all messages for the specified user (after decryption).
+### 4. Token Generation
+JWT tokens are generated using:
+```javascript
+jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+```
 
-### 3. POST /debug/decrypt
 
-Debug and fix the broken decryption logic provided in the file
-`debug_code.py` or `debug_code.js`.
+## 🧪 Testing
+To run all tests:
+```
+npm test
+```
+Test Coverage:
+- **Authentication Tests**
+- **Crypto Service Tests**
+- **File Handling Tests**
+- **Message Expiry Tests**
 
-## 🔐 Encryption Rules
 
--   Use **AES (AES-256)** encryption only.
--   like `pycryptodome` or `crypto-js`.
--   Use only:
-    -   `crypto` module in Node.js
-    -   `cryptography` or built-in `hashlib + hmac` in Python
--   IV must be random per message and embedded in the encrypted payload
-    so it can be extracted and reused for decryption.
--   Return encrypted values in `base64` format.
+## 📌 Deployment
+1. Ensure your `.env` file is configured correctly.
+2. Push your code to a hosting platform like **Heroku, Vercel, or DigitalOcean**.
+3. Set environment variables (e.g., `SECRET_KEY`, `PORT`) on your hosting platform.
 
-## 🧠 Required Design Write-Up
+### Deploy to Heroku Example:
+```
+heroku login
+heroku create
+heroku config:set SECRET_KEY=your_secret_key PORT=3000
+```
 
-Include this in your README or code comments before implementation:
 
-1.  What encryption method and mode did you choose, and why?
-2.  How will you ensure only the original user can access their
-    messages?
-3.  How do you plan to store and later extract the IV?
-4.  How would you prevent user ID spoofing to access other users\'
-    messages?
+## 💡 Design Decisions & Considerations
+- Implemented using Node.js with ES Modules for modern JavaScript compatibility.
+- Used `crypto` module for AES-256-CBC encryption.
+- Token-based authentication implemented with `jsonwebtoken`.
+- Included comprehensive testing using `Mocha` and `Chai`.
+- Stored messages in JSON format to simulate a database.
 
-## 🐞 Debug Task
 
-Inside the file `debug_code.py` or `debug_code.js` is a broken function
-`broken_decrypt()`.
+## 📥 Submission Process
+1. **Fork the Repository**: [Repository Link](https://github.com/waleedahmed0710/backend-coding-challenge)
+2. **Push Your Code** to your forked repository.
+3. **Create a Pull Request (PR)** to the original repository following the guidelines provided.
+4. **Add Notes or Comments** about your design decisions and any trade-offs you made.
 
-You must:
 
--   Identify and fix the issue.
--   Write a test case that reproduces the problem.
--   Comment your fix explaining what went wrong and why your fix works.
+## 📞 Contact
+If you have any questions or need further assistance, feel free to reach out.
+0619668429
+earlinnocent@gmail.com
 
-## ✅ Evaluation Criteria
-
--   Correct and working encryption/decryption logic
--   Clean, readable, and modular code structure
--   Secure handling of message data and per-user access
--   Thoughtful answers to the design questions
--   Successful debugging with clear explanation
--   Edge case handling and meaningful error responses
-
-## 🚀 Bonus (Optional)
-
--   Implement message expiry (auto-delete after 10 minutes)
--   Add basic token-based authentication
--   Write unit tests for encryption, storage, and retrieval
-
-## 📥 Submission
-
--   Submit your full project folder via zip or GitHub repository.
--   Include a `README.md` with:
-    -   Instructions to run the project
-    -   Your answers to the design questions
-    -   Any assumptions or constraints you considered
-
-**Reminder:** Write professional-grade, clean, and thoughtful code.
-Structure your project clearly and keep logic modular. We\'ll be
-reviewing both code and reasoning.
